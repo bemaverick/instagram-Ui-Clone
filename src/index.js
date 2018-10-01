@@ -4,14 +4,16 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {Platform, TouchableOpacity, Easing, Animated, Text, View, SafeAreaView} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 
 import Home from './containers/Home/HomeMain';
 import ExploreMain from './containers/Explore/ExploreMain';
+import ExploreSearch from './containers/Explore/ExploreSearch';
+import { HeaderSearch } from './components/index'
 
 
 type Props = {};
@@ -24,6 +26,70 @@ export default class App extends Component<Props> {
     );
   }
 }
+const SearchTopBar = createMaterialTopTabNavigator({
+  Best: {
+    screen: Home,
+    navigationOptions: {
+      title: "Лучшие"
+    }
+  },
+  People: {
+    screen: ExploreSearch,
+    navigationOptions: {
+      title: "Люди"
+    }
+  },
+  Labels: {
+    screen: ExploreMain,
+    navigationOptions: {
+      title: "Метки"
+    }
+  },
+  Places: {
+    screen: ExploreMain,
+    navigationOptions: {
+      title: "Места"
+    }
+  }
+},{
+  tabBarOptions: {
+    activeTintColor: '#000',
+    inactiveTintColor: "gray",
+    indicatorStyle: {
+      backgroundColor: '#000'
+    },
+    style: {
+      backgroundColor: '#fff',
+      height: 40
+    }
+  }
+})
+
+const ExploreStack = createStackNavigator({
+  Explore: {
+    screen: ExploreMain,
+    navigationOptions:{
+      header: null
+
+    }
+  },
+  ExploreSearch: {
+    screen: SearchTopBar,
+    navigationOptions:{
+      header:null
+    }
+  }
+},{
+  transitionConfig : () => ({
+    transitionSpec: {
+      duration: 0,
+      timing: Animated.timing,
+      easing: Easing.step0,
+    },
+  }),
+});
+
+
 
 
 const TabNavigator = createBottomTabNavigator({
@@ -31,7 +97,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: Home
   },
   Explore: {
-    screen: ExploreMain
+    screen: ExploreStack
   },
   Share: {
     screen: Home

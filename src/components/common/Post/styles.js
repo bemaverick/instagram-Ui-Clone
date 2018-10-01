@@ -1,7 +1,7 @@
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
 
 export default  StyleSheet.create({
-  container: {
+  headerContainer: {
     flex: 0,
     height: 44,
     paddingLeft: 12,
@@ -34,6 +34,43 @@ export default  StyleSheet.create({
     width: 44,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+
+  slide: {
+    width: Dimensions.get('window').width,
+    backgroundColor: 'green'
+  //  height: Dimensions.get('window').width
+  },
+  image: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width,
+    resizeMode: 'cover'
+  },
+
+  containerControl: {
+    flex: 1,
+    height: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  socialIconsBlock: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+
+  },
+  paginationBlock: {
+    flex: 1,
+    alignItems: 'center'
+
+  },
+  favoritesBlock: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingRight: 12
   }
 
 
